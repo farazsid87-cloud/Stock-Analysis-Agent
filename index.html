@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Stock Analysis Agent</title>
+<style>
+  body {
+    font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+    max-width: 720px;
+    margin: 40px auto;
+    padding: 0 20px;
+    background: #f7f7f8;
+    color: #1a1a1a;
+  }
+  h1 { font-size: 1.6rem; margin-bottom: 4px; }
+  p.subtitle { color: #555; margin-top: 0; }
+  form { display: flex; gap: 10px; margin: 20px 0 8px; }
+  input[type=text] {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-transform: uppercase;
+  }
+  button {
+    padding: 10px 18px;
+    font-size: 1rem;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  button:hover { background: #1d4ed8; }
+  .error {
+    background: #fdecea;
+    color: #8a1f11;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin: 16px 0;
+  }
+  .report {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    white-space: pre-wrap;
+    line-height: 1.55;
+    margin-top: 12px;
+  }
+  .loading { color: #666; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+  <h1>📊 Stock Analysis Agent</h1>
+  <p class="subtitle">Enter a stock ticker to get a CrewAI-generated investor report (news + price trends).</p>
+
+  <form method="POST" onsubmit="document.getElementById('loading').style.display='block';">
+    <input type="text" name="ticker" placeholder="AAPL" value="{{ ticker }}" required autofocus>
+    <button type="submit">Analyze</button>
+  </form>
+  <p id="loading" class="loading" style="display:none;">Running agents... this can take 20-60 seconds.</p>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+
+  {% if report %}
+    <h2>Report for {{ ticker }}</h2>
+    <div class="report">{{ report }}</div>
+  {% endif %}
+</body>
+</html>
