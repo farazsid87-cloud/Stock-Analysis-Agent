@@ -1,0 +1,10 @@
+crewai==1.14.4
+crewai-tools
+google-generativeai
+duckduckgo_search
+yfinance
+pandas
+beautifulsoup4
+python-dotenv
+litellm
+flask
